@@ -1,0 +1,75 @@
+{
+    "manifestVersion": 1,
+    "id": "parents",
+    "version": "0.0.19",
+    "name": "Parents",
+    "scopes": [ "vso.work", "vso.work_write" ],
+    "description": "Show all parents.",
+    "publisher": "mesopelagique",
+    "icons": {
+        "default": "dist/img/logo.png"
+    },
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "restrictedTo": [
+        "Member",
+        "Public",
+        "Anonymous"
+    ],
+    "tags": [
+        "Work Item",
+        "Work Item Group"
+    ],
+    "content": {
+        "details": {
+            "path": "readme.md"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/mesopelagique/Azure-Full-Hierarchy"
+    },
+    "branding": {
+        "color": "rgb(220, 235, 252)",
+        "theme": "light"
+    },
+    "files": [
+        {
+            "path": "dist/img",
+            "addressable": true
+        },
+        {
+            "path": "dist/scripts",
+            "addressable": true
+        },
+        {
+            "path": "dist/parents.html",
+            "addressable": true
+        },
+        {
+            "path": "dist/parents.css",
+            "addressable": true
+        }
+    ],
+    "categories": [
+        "Azure Repos"
+    ],
+    "contributions": [
+        {  
+            "id": "full-hierarchy-work-item-form-group",
+            "type": "ms.vss-work-web.work-item-form-group",
+            "description": "Custom work item form group",
+            "targets": [
+                "ms.vss-work-web.work-item-form"
+            ],
+            "properties": {
+                "name": "Parents",
+                "uri": "parents.html",
+                "height": 180
+            }
+        }
+    ]
+}
