@@ -62,16 +62,16 @@ export class ParentsControl extends Control<{}> {
             const artifactdata = $("<div class=\"la-artifact-data\"></div>").appendTo(wrapper);
             const primarydata = $("<div class=\"la-primary-data\"></div>").appendTo(artifactdata);
  
-            const primaryicon = $("<div class=\"la-primary-icon\" style=\"display: inline;\"></div>").appendTo(primarydata);
+            const primaryicon = $("<div class=\"la-primary-icon\" style=\"display: inline;\">&nbsp;</div>").appendTo(primarydata);
 
             const type: WorkItemType = types.get(parent.fields[witField])
             if (type != null) {
                 const iconsymbol = "bowtie-symbol-"+type.icon.id
                 .replace("icon_", "")
-                .replace("check_box", "status-success-box")
+                .replace("symbol-check_box", "status-success-box")
                 .replace("_", ""); // no info how to convert api info and bowtie map
                 const iconcolor = "#"+type.color;
-                $("<span aria-hidden=\"true\" class=\"bowtie-icon "+iconsymbol+" flex-noshrink\" style=\"color: "+iconcolor+";\"></span>").appendTo(primaryicon);
+                $("<span aria-hidden=\"true\" class=\"bowtie-icon "+iconsymbol+" flex-noshrink\" style=\"color: "+iconcolor+";\"> </span>&nbsp;").appendTo(primaryicon);
             }
            
             $("<div class=\"la-primary-data-id\" style=\"display: inline;\">"+parent.fields[idField].toString()+"&nbsp;</div>").appendTo(primarydata);
