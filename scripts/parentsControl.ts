@@ -1,6 +1,6 @@
 import { Control } from "VSS/Controls";
 import { IWorkItemChangedArgs, IWorkItemLoadedArgs } from "TFS/WorkItemTracking/ExtensionContracts";
-import { WorkItem, WorkItemType} from "TFS/WorkItemTracking/Contracts"
+import { WorkItem, WorkItemType, WorkItemExpand} from "TFS/WorkItemTracking/Contracts"
 import { WorkItemFormService } from "TFS/WorkItemTracking/Services";
 import { getClient } from "TFS/WorkItemTracking/RestClient";
 import { idField, witField, projectField, titleField, parentField } from "./fieldNames";
@@ -19,6 +19,19 @@ export class ParentsControl extends Control<{}> {
                 this.parents.push(parentWi);
                 await this.fillTypes(parentWi, project);
                 await this.fillParents(parentWi, project);
+            } 
+        } else {
+            if (wi.fields[witField] == "Test Case") { //  Microsoft.VSTS.WorkItemTypes.TestCase
+                const wiRelation: WorkItem = await getClient().getWorkItem(wi.id, undefined, undefined, WorkItemExpand.Relations, project);
+                const relations = wiRelation.relations.filter(relation => relation.rel == "Microsoft.VSTS.Common.TestedBy-Reverse");
+                if (relations.length > 0) {
+                    const relationId = Number(relations[0].url.split('/').pop()) // .attributes[idField];
+                    console.log(relationId);
+                    const parentWi: WorkItem = await getClient().getWorkItem(relationId, [idField, titleField, parentField, witField], undefined, undefined, project);
+                    this.parents.push(parentWi);
+                    await this.fillTypes(parentWi, project);
+                    await this.fillParents(parentWi, project);
+                }
             }
         }
     }
@@ -37,7 +50,7 @@ export class ParentsControl extends Control<{}> {
    
         const project = fields[projectField] as string;
         this.parents = [];
-        const wi: WorkItem = await getClient().getWorkItem(this.wiId, [parentField], undefined, undefined, project);
+        const wi: WorkItem = await getClient().getWorkItem(this.wiId, [parentField, witField], undefined, undefined, project);
         await this.fillParents(wi, project);
         // update ui
         if (this.parents && this.parents.length != 0) {

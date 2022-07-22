@@ -1,24 +1,62 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <script type="text/javascript">
-        var appInsights=window.appInsights||function(config){
-            function i(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=config.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{t.cookie=u.cookie}catch(p){}for(t.queue=[],t.version="1.0",r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)i("track"+r.pop());return i("set"+s),i("clear"+s),i(h+a),i(c+a),i(h+v),i(c+v),i("flush"),config.disableExceptionTracking||(r="onerror",i("_"+r),f=e[r],e[r]=function(config,i,u,e,o){var s=f&&f(config,i,u,e,o);return s!==!0&&t["_"+r](config,i,u,e,o),s}),t
-            }({
-                instrumentationKey:"41b4ace4-32f4-4d72-aa7a-52867515126f",
-                disableAjaxTracking: true,
-            });
-            
-            window.appInsights=appInsights;
-            window.start = performance.now()
+        var appInsights = window.appInsights || function(config) {
+            function i(config) {
+                t[config] = function() {
+                    var i = arguments;
+                    t.queue.push(function() {
+                        t[config].apply(t, i)
+                    })
+                }
+            }
+            var t = {
+                    config: config
+                },
+                u = document,
+                e = window,
+                o = "script",
+                s = "AuthenticatedUserContext",
+                h = "start",
+                c = "stop",
+                l = "Track",
+                a = l + "Event",
+                v = l + "Page",
+                y = u.createElement(o),
+                r, f;
+            y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js";
+            u.getElementsByTagName(o)[0].parentNode.appendChild(y);
+            try {
+                t.cookie = u.cookie
+            } catch (p) {}
+            for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;) i("track" + r.pop());
+            return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function(config, i, u, e, o) {
+                var s = f && f(config, i, u, e, o);
+                return s !== !0 && t["_" + r](config, i, u, e, o), s
+            }), t
+        }({
+            instrumentationKey: "41b4ace4-32f4-4d72-aa7a-52867515126f",
+            disableAjaxTracking: true,
+        });
+
+        window.appInsights = appInsights;
+        window.start = performance.now()
     </script>
     <script inline src="dist/scripts/VSS.SDK.min.js"></script>
     <link inline href="dist/parents.css" rel="stylesheet" />
 </head>
+
 <body>
     <div class="parent-group">
+        <span class="bowtie-icon bowtie-status-info parent-info" tabindex="0">
+            <div class="parent-callout">
+                <a href="https://github.com/mesopelagique/parents-group-azuredevops/issues" target="_blank">Report an issue or ask for feature</a>
+            </div>
+        </span>
         <div class="parents-control"></div>
     </div>
     <script type="text/javascript">
@@ -29,7 +67,7 @@
             configureModuleLoader: true,
             applyTheme: true,
         });
-        
+
         // Load main entry point for extension
         VSS.require([
             "TFS/Work/RestClient",
@@ -45,9 +83,10 @@
             "VSS/Controls",
             "TFS/WorkItemTracking/Services",
             "scripts/parents"
-            ], function () {
+        ], function() {
             VSS.notifyLoadSucceeded();
         });
     </script>
 </body>
+
 </html>
